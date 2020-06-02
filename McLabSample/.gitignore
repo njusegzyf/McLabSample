@@ -1,0 +1,30 @@
+#### ignore folder
+bin/
+out/
+lib/
+target/
+
+#### ignore fixed file
+#/ZYFProj.iml
+#/ZYFProj.ipr
+#/ZYFProj.iws
+/GitCommitMessage.txt
+# logfile.log
+
+#### ignore some type of files
+*.log
+*.class
+*.exe
+*.dll
+*.bat
+*~
+*.[oa]
+
+#### Two asterisks can match nested directories. Ignore all .txt files in the doc/ directory. 
+# doc/**/*.txt
+
+#### track files
+#!ZYFProj.ipr
+
+#### track folders
+#!/plutommi/Customer

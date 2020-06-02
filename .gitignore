@@ -1,0 +1,13 @@
+*.class
+.idea
+bin
+bin-ant
+bin-eclipse
+gen
+*.m
+*.n
+*.f95
+McLabCore.jar
+McLabCore.sh
+tags
+benchmarks

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="JFlex.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jflex-1.4.1/lib/JFlex.jar!/"/>
+	</lib>
+	<lib name="beaver.jar" scope="COMPILE">
+		<srcroot url="file://$MODULE_DIR$/lib/beaver-0.9.6.2/src"/>
+		<relative-module-src project-related="file://$PROJECT_DIR$/lib/beaver-0.9.6.2/src"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/beaver-0.9.6.2/lib/beaver.jar!/"/>
+	</lib>
+	<lib name="junit-4.4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/junit-4.4/junit-4.4.jar!/"/>
+	</lib>
+	<lib name="antlr-3.0.1.jar" scope="COMPILE">
+		<srcroot url="file://$MODULE_DIR$/lib/antlr-3.0.1/runtime/Java/src"/>
+		<relative-module-src project-related="file://$PROJECT_DIR$/lib/antlr-3.0.1/runtime/Java/src"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/antlr-3.0.1/lib/antlr-3.0.1.jar!/"/>
+	</lib>
+	<lib name="antlr3-task.jar" scope="COMPILE">
+		<srcroot url="jar://$MODULE_DIR$/lib/antlr3-task-20071115/antlr3-src.jar!/"/>
+		<relative-module-src project-related="jar://$PROJECT_DIR$/lib/antlr3-task-20071115/antlr3-src.jar!/"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/antlr3-task-20071115/antlr3-task.jar!/"/>
+	</lib>
+	<lib name="antlr-2.7.7.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/antlr-3.0.1/lib/antlr-2.7.7.jar!/"/>
+	</lib>
+	<lib name="stringtemplate-3.1b1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/antlr-3.0.1/lib/stringtemplate-3.1b1.jar!/"/>
+	</lib>
+	<lib name="resources" scope="COMPILE">
+		<relative-module-cls project-related="file://$PROJECT_DIR$/languages/Natlab/resources"/>
+	</lib>
+	<lib name="json-simple-1.1.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/json-simple-1.1.1/json-simple-1.1.1.jar!/"/>
+	</lib>
+	<lib name="guava-16.0.1.jar" scope="COMPILE">
+		<srcroot url="jar://$MODULE_DIR$/lib/guava-16.0.1/guava-16.0.1-sources.jar!/"/>
+		<relative-module-src project-related="jar://$PROJECT_DIR$/lib/guava-16.0.1/guava-16.0.1-sources.jar!/"/>
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/guava-16.0.1/guava-16.0.1.jar!/"/>
+	</lib>
+	<lib name="jcommander-1.47.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jcommander/jcommander-1.47.jar!/"/>
+	</lib>
+</component>

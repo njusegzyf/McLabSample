@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>McLabSample</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <project.version>0.1</project.version>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+
+    <java.version>1.14</java.version>
+    <java.releaseVersion>14</java.releaseVersion>
+    <!-- `release` makes source and target after JDK9 -->
+    <maven.compiler.release>${java.releaseVersion}</maven.compiler.release>
+    <maven.compiler.source>${java.releaseVersion}</maven.compiler.source>
+    <maven.compiler.target>${java.releaseVersion}</maven.compiler.target>
+    <maven.compiler.testRelease>${java.releaseVersion}</maven.compiler.testRelease>
+    <maven.compiler.testSource>${java.releaseVersion}</maven.compiler.testSource>
+    <maven.compiler.testTarget>${java.releaseVersion}</maven.compiler.testTarget>
+
+    <java.javaFX.version>13.0.1</java.javaFX.version>
+
+    <scala.version>2.13.1</scala.version>
+    <scala.binaryVersion>2.13</scala.binaryVersion>
+    <scala.scope>compile</scala.scope>
+    <scala.langModule.version>2.0.0-M1</scala.langModule.version>
+    <scala.langModule.scope>compile</scala.langModule.scope>
+
+    <!-- define library versions to be used in sub modules -->
+
+    <!-- util libs versions -->
+    <guava.version>28.1</guava.version>
+    <guava.actualVersion>${guava.version}-jre</guava.actualVersion>
+    <apach.commonsMath3.version>3.6.1</apach.commonsMath3.version>
+    <apach.commonsLang3.version>3.8.1</apach.commonsLang3.version>
+    <apach.poi.version>3.17</apach.poi.version>
+    <akka.version>2.6.3</akka.version>
+    <protobuf.version>3.11.1</protobuf.version>
+    <protobuf.grpc.version>1.26.0</protobuf.grpc.version>
+    <protobuf.mavenPlugin.version>0.6.1</protobuf.mavenPlugin.version>
+    <json4s.version>3.7.0-M2</json4s.version>
+
+    <!-- collection libs versions -->
+    <!-- gs-collections is renamed as eclipse-collections <gscollections.version>7.0.3</gscollections.version> -->
+    <eclipseCollections.version>10.1.0</eclipseCollections.version>
+    <trove4j.version>3.0.3</trove4j.version>
+
+    <!-- test lib versions -->
+    <testng.version>7.0.0</testng.version>
+    <scalatest.artifactId>scalatest_${scala.binaryVersion}</scalatest.artifactId>
+    <scalactic.artifactId>scalactic_${scala.binaryVersion}</scalactic.artifactId>
+    <scalatest.version>3.2.0-M2</scalatest.version>
+    <scalatest.scalatestplus.version>1.0.0-M2</scalatest.scalatestplus.version>
+    <assertj.version>3.14.0</assertj.version>
+    <assertjGuava.version>3.3.0</assertjGuava.version>
+    <mockito.version>3.2.4</mockito.version>
+    <mockito.mockitoScala.version>1.10.2</mockito.mockitoScala.version>
+    <junit.junit4.version>4.13-rc-2</junit.junit4.version>
+    <junit.junit5.version>5.6.0-M1</junit.junit5.version>
+    <jmh.version>1.22</jmh.version>
+
+    <!-- Scala lib versions -->
+    <shapeless.version>2.3.3</shapeless.version>
+    <scalaz.version>7.3.0-M32</scalaz.version>
+
+    <!-- log lib versions -->
+    <slf4j.version>1.7.26</slf4j.version>
+    <logback.version>1.2.3</logback.version>
+
+    <!-- Rx lib versions -->
+    <rxjava2.version>2.2.16</rxjava2.version>
+    <rxjava1.version>1.3.8</rxjava1.version>
+    <rxjava1.rxscala.version>0.27.0</rxjava1.rxscala.version>
+    <rxjava1.rxswing.version>0.27.0</rxjava1.rxswing.version>
+
+    <!-- graph lib versions -->
+    <jgrapht.version>1.3.1</jgrapht.version>
+
+  </properties>
+
+  <build>
+
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+
+    <extensions></extensions>
+
+    <pluginManagement>
+      <plugins>
+
+        <!-- https://davidb.github.io/scala-maven-plugin/ -->
+        <!-- https://mvnrepository.com/artifact/net.alchim31.maven/scala-maven-plugin -->
+        <plugin>
+          <groupId>net.alchim31.maven</groupId>
+          <artifactId>scala-maven-plugin</artifactId>
+          <version>4.3.0</version>
+
+          <executions>
+            <execution>
+              <id>scala-compile-first</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>add-source</goal>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>scala-test-compile</id>
+              <phase>process-test-resources</phase>
+              <goals>
+                <goal>testCompile</goal>
+              </goals>
+            </execution>
+          </executions>
+
+          <configuration>
+            <scalaVersion>${scala.version}</scalaVersion>
+            <!--            <args>-->
+            <!--              <arg>-unchecked</arg>-->
+            <!--              <arg>-deprecation</arg>-->
+            <!--              <arg>-explaintypes</arg>-->
+            <!--            </args>-->
+            <javacArgs>
+              <javacArg>-source</javacArg>
+              <javacArg>${java.releaseVersion}</javacArg>
+              <javacArg>-target</javacArg>
+              <javacArg>${java.releaseVersion}</javacArg>
+              <!-- <javacArg>&#45;&#45;enable-preview</javacArg> -->
+            </javacArgs>
+
+            <!-- FIXME: When `incremental` is used, `testCompile` failed in compiling files with Java 13 preview features, even the enable preview flag is offered for test compiler in maven compiler plugin. -->
+            <recompileMode>all</recompileMode> <!-- or incremental -->
+            <!-- <useZincServer>false</useZincServer> -->
+
+            <excludes>
+              <exclude>module-info.java</exclude>
+            </excludes>
+
+            <!--            <jvmArgs>-->
+            <!--              <jvmArg>&#45;&#45;enable-preview</jvmArg>-->
+            <!--            </jvmArgs>-->
+          </configuration>
+
+        </plugin>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+
+        <!--Note: Use `maven-toolchains-plugin` to ues specified JDK if it is not default-->
+        <plugin>
+          <artifactId>maven-toolchains-plugin</artifactId>
+          <version>1.1</version>
+          <configuration>
+            <toolchains>
+              <jdk>
+                <version>${java.version}</version>
+                <vendor>oracle</vendor>
+              </jdk>
+            </toolchains>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>toolchain</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+
+          <executions>
+            <execution>
+              <phase>compile</phase>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+          </executions>
+
+          <configuration>
+            <release>${maven.compiler.release}</release>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.target}</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
+            <showWarnings>true</showWarnings>
+            <showDeprecation>true</showDeprecation>
+            <!--            <fork>true</fork>-->
+            <!--            <compilerArgs>-->
+            <!--              <arg>&#45;&#45;enable-preview</arg>-->
+            <!--            </compilerArgs>-->
+            <!--            <testCompilerArgument>-->
+            <!--              &#45;&#45;enable-preview-->
+            <!--            </testCompilerArgument>-->
+          </configuration>
+
+          <!--  -->
+
+          <!--maven-compiler-plugin depends on the old version of ASM which does not support Java 10 yet.
+          However, it is possible to explicitly specify the right version of ASM:-->
+          <!--<dependencies>-->
+          <!--<dependency>-->
+          <!--<groupId>org.ow2.asm</groupId>-->
+          <!--<artifactId>asm</artifactId>-->
+          <!--<version>6.1.1</version> &lt;!&ndash; Use newer version of ASM &ndash;&gt;-->
+          <!--</dependency>-->
+          <!--</dependencies>-->
+
+        </plugin>
+
+        <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+        <!--<version>3.0.10</version>-->
+        <!--<configuration>-->
+        <!--<encoding>UTF-8</encoding>-->
+        <!--<doclint>none</doclint>-->
+        <!--</configuration>-->
+        <!--<executions>-->
+        <!--<execution>-->
+        <!--<id>attach-javadoc</id>-->
+        <!--<goals>-->
+        <!--<goal>jar</goal>-->
+        <!--</goals>-->
+        <!--</execution>-->
+        <!--</executions>-->
+        <!--</plugin>-->
+
+        <!-- The Failsafe Plugin is designed to run integration tests while the Surefire Plugin is designed to run unit tests -->
+
+        <!-- maven 单元测试插件 -->
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.0.0-M4</version>
+
+          <!--对于 surefire 和 failsafe 插件，我们添加了一个额外的参数，illegal-access=permit 以允许第三方库的所有反射访问 -->
+          <configuration>
+            <argLine>
+              --illegal-access=permit --enable-preview
+            </argLine>
+          </configuration>
+        </plugin>
+
+        <!-- maven 集成测试插件 -->
+        <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-failsafe-plugin</artifactId>-->
+        <!--<version>2.22.0</version>-->
+        <!--<configuration>-->
+        <!--<argLine>-->
+        <!--&#45;&#45;illegal-access=permit-->
+        <!--</argLine>-->
+        <!--</configuration>-->
+        <!--</plugin>-->
+
+        <plugin>
+          <groupId>net.alchim31.maven</groupId>
+          <artifactId>scala-maven-plugin</artifactId>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <dependencies>
+
+    <!-- Explicitly picked lib dependencies -->
+
+    <!-- Javax libs -->
+
+    <!-- Javax annotation libs -->
+    <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+    <!--    <dependency>-->
+    <!--      <groupId>javax.annotation</groupId>-->
+    <!--      <artifactId>javax.annotation-api</artifactId>-->
+    <!--      <version>1.3.2</version>-->
+    <!--    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/javax.annotation/jsr305 -->
+    <!--    <dependency>-->
+    <!--      <groupId>javax.annotation</groupId>-->
+    <!--      <artifactId>jsr305</artifactId>-->
+    <!--      <version>1.0</version>-->
+    <!--    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>3.0.2</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- Units of Measurement Standard (JSR 385)
+    This JSR specifies Java packages for modeling and working with measurement values, quantities and their corresponding units. -->
+    <!-- https://mvnrepository.com/artifact/javax.measure/unit-api -->
+    <dependency>
+      <groupId>javax.measure</groupId>
+      <artifactId>unit-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <!-- Unit Standard (JSR 385) Reference Implementation.  -->
+    <!-- https://mvnrepository.com/artifact/tech.units/indriya -->
+    <dependency>
+      <groupId>tech.units</groupId>
+      <artifactId>indriya</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+
+    <!-- collection libs -->
+    <!-- Note: gs-collections migrate to eclipse-collections -->
+    <!-- https://mvnrepository.com/artifact/org.eclipse.collections/eclipse-collections-api -->
+    <dependency>
+      <groupId>org.eclipse.collections</groupId>
+      <artifactId>eclipse-collections-api</artifactId>
+      <version>${eclipseCollections.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.eclipse.collections/eclipse-collections -->
+    <dependency>
+      <groupId>org.eclipse.collections</groupId>
+      <artifactId>eclipse-collections</artifactId>
+      <version>${eclipseCollections.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- util libs -->
+    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.actualVersion}</version>
+      <!-- Exclude jsr305 -->
+      <!--<exclusions>-->
+      <!--<exclusion>-->
+      <!--<groupId>com.google.code.findbugs</groupId>-->
+      <!--<artifactId>jsr305</artifactId>-->
+      <!--</exclusion>-->
+      <!--</exclusions>-->
+      <scope>compile</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${apach.commonsLang3.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>${apach.commonsMath3.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- test libs (scope compile) -->
+    <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.assertj/assertj-guava -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-guava</artifactId>
+      <version>${assertjGuava.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- test libs (scope test) -->
+    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JRE internal libs -->
+    <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+    <!--<dependency>-->
+    <!--<groupId>com.sun.xml.bind</groupId>-->
+    <!--<artifactId>jaxb-impl</artifactId>-->
+    <!--<version>2.3.0</version>-->
+    <!--</dependency>-->
+
+    <!-- Scala language libs -->
+    <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-compiler -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-compiler</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-reflect -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-reflect</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.scala-lang.modules/scala-async -->
+    <dependency>
+      <groupId>org.scala-lang.modules</groupId>
+      <artifactId>scala-async_${scala.binaryVersion}</artifactId>
+      <version>0.10.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.scala-lang.modules/scala-java8-compat_2.12 -->
+    <dependency>
+      <groupId>org.scala-lang.modules</groupId>
+      <artifactId>scala-java8-compat_${scala.binaryVersion}</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.michaelpollmeier/scala-arm -->
+    <dependency>
+      <groupId>com.michaelpollmeier</groupId>
+      <artifactId>scala-arm_${scala.binaryVersion}</artifactId>
+    </dependency>
+
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- Scala lib dependencies -->
+      <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+      <dependency>
+        <groupId>org.scala-lang</groupId>
+        <artifactId>scala-library</artifactId>
+        <version>${scala.version}</version>
+        <scope>${scala.scope}</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-compiler -->
+      <dependency>
+        <groupId>org.scala-lang</groupId>
+        <artifactId>scala-compiler</artifactId>
+        <version>${scala.version}</version>
+        <scope>${scala.scope}</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-reflect -->
+      <dependency>
+        <groupId>org.scala-lang</groupId>
+        <artifactId>scala-reflect</artifactId>
+        <version>${scala.version}</version>
+        <scope>${scala.scope}</scope>
+      </dependency>
+
+      <!-- Scala language modules dependencies -->
+      <!-- https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml -->
+      <dependency>
+        <groupId>org.scala-lang.modules</groupId>
+        <artifactId>scala-xml_${scala.binaryVersion}</artifactId>
+        <version>${scala.langModule.version}</version>
+        <scope>${scala.langModule.scope}</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators -->
+      <dependency>
+        <groupId>org.scala-lang.modules</groupId>
+        <artifactId>scala-parser-combinators_${scala.binaryVersion}</artifactId>
+        <version>1.1.2</version>
+        <scope>${scala.langModule.scope}</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.scala-lang.modules/scala-swing -->
+      <dependency>
+        <groupId>org.scala-lang.modules</groupId>
+        <artifactId>scala-swing_${scala.binaryVersion}</artifactId>
+        <version>2.1.1</version>
+        <scope>${scala.langModule.scope}</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.scala-lang.modules</groupId>
+        <artifactId>scala-async_${scala.binaryVersion}</artifactId>
+        <version>0.10.0</version>
+        <scope>${scala.langModule.scope}</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.scala-lang.modules/scala-java8-compat_2.12 -->
+      <dependency>
+        <groupId>org.scala-lang.modules</groupId>
+        <artifactId>scala-java8-compat_${scala.binaryVersion}</artifactId>
+        <version>0.9.0</version>
+        <scope>${scala.langModule.scope}</scope>
+      </dependency>
+
+      <!-- Scala ARM(Automatic-Resource-Management) -->
+      <!-- https://mvnrepository.com/artifact/com.michaelpollmeier/scala-arm -->
+      <dependency>
+        <groupId>com.michaelpollmeier</groupId>
+        <artifactId>scala-arm_${scala.binaryVersion}</artifactId>
+        <version>2.1</version>
+        <scope>${scala.langModule.scope}</scope>
+      </dependency>
+
+      <!-- collection libs-->
+      <!-- https://mvnrepository.com/artifact/net.sf.trove4j/trove4j -->
+      <dependency>
+        <groupId>net.sf.trove4j</groupId>
+        <artifactId>trove4j</artifactId>
+        <version>${trove4j.version}</version>
+        <scope>compile</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/net.algart/algart, http://algart.net/java/AlgART/ -->
+      <dependency>
+        <groupId>net.algart</groupId>
+        <artifactId>algart</artifactId>
+        <version>1.2.11</version>
+      </dependency>
+
+      <!-- util libs -->
+      <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>2.10.5</version>
+      </dependency>
+
+      <!-- JavaFX -->
+      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-base</artifactId>
+        <version>${java.javaFX.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>${java.javaFX.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>${java.javaFX.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics</artifactId>
+        <version>${java.javaFX.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-web</artifactId>
+        <version>${java.javaFX.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-media</artifactId>
+        <version>${java.javaFX.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-swing</artifactId>
+        <version>${java.javaFX.version}</version>
+      </dependency>
+
+      <!-- akka -->
+      <!-- Akka is a toolkit for building highly concurrent, distributed, and resilient message-driven applications for Java and Scala.  -->
+      <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor -->
+      <dependency>
+        <groupId>com.typesafe.akka</groupId>
+        <artifactId>akka-actor_${scala.binaryVersion}</artifactId>
+        <version>${akka.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-testkit -->
+      <dependency>
+        <groupId>com.typesafe.akka</groupId>
+        <artifactId>akka-testkit_${scala.binaryVersion}</artifactId>
+        <version>${akka.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-stream -->
+      <dependency>
+        <groupId>com.typesafe.akka</groupId>
+        <artifactId>akka-stream_${scala.binaryVersion}</artifactId>
+        <version>${akka.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-slf4j_2.12 -->
+      <dependency>
+        <groupId>com.typesafe.akka</groupId>
+        <artifactId>akka-slf4j_${scala.binaryVersion}</artifactId>
+        <version>${akka.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.typesafe.akka/akka-protobuf -->
+      <dependency>
+        <groupId>com.typesafe.akka</groupId>
+        <artifactId>akka-protobuf_${scala.binaryVersion}</artifactId>
+        <version>${akka.version}</version>
+      </dependency>
+
+      <!-- protobuf -->
+      <!-- Core Protocol Buffers library. Protocol Buffers are a way of encoding structured data in an efficient yet extensible format.  -->
+      <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
+      <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>${protobuf.version}</version>
+      </dependency>
+      <!-- Utilities for Protocol Buffers -->
+      <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java-util -->
+      <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java-util</artifactId>
+        <version>${protobuf.version}</version>
+      </dependency>
+      <!-- Protobuf Compiler (protoc) is a compiler for .proto files. It generates language-specific code for Protobuf messages and RPC interfaces. -->
+      <!-- https://mvnrepository.com/artifact/com.google.protobuf/protoc -->
+      <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protoc</artifactId>
+        <version>${protobuf.version}</version>
+        <type>pom</type>
+      </dependency>
+
+      <!-- The Java gRPC implementation. HTTP/2 based RPC -->
+      <!-- https://github.com/grpc/grpc-java -->
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-netty</artifactId>
+        <version>${protobuf.grpc.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-protobuf</artifactId>
+        <version>${protobuf.grpc.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-stub</artifactId>
+        <version>${protobuf.grpc.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- A Java serialization/deserialization library to convert Java Objects into JSON and back -->
+      <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.8.6</version>
+      </dependency>
+
+      <!-- json4s provides a single AST to be used by other scala json libraries. -->
+      <!-- https://github.com/json4s/json4s -->
+      <!-- https://mvnrepository.com/artifact/org.json4s/json4s-core -->
+      <dependency>
+        <groupId>org.json4s</groupId>
+        <artifactId>json4s-core_${scala.binaryVersion}</artifactId>
+        <version>${json4s.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.json4s/json4s-ast -->
+      <dependency>
+        <groupId>org.json4s</groupId>
+        <artifactId>json4s-ast_${scala.binaryVersion}</artifactId>
+        <version>${json4s.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.json4s/json4s-ext -->
+      <dependency>
+        <groupId>org.json4s</groupId>
+        <artifactId>json4s-ext_${scala.binaryVersion}</artifactId>
+        <version>${json4s.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.json4s/json4s-jackson -->
+      <dependency>
+        <groupId>org.json4s</groupId>
+        <artifactId>json4s-jackson_${scala.binaryVersion}</artifactId>
+        <version>${json4s.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.json4s/json4s-native -->
+      <dependency>
+        <groupId>org.json4s</groupId>
+        <artifactId>json4s-native_${scala.binaryVersion}</artifactId>
+        <version>${json4s.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.json4s/json4s-xml -->
+      <dependency>
+        <groupId>org.json4s</groupId>
+        <artifactId>json4s-xml_${scala.binaryVersion}</artifactId>
+        <version>${json4s.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.json4s/json4s-mongo -->
+      <dependency>
+        <groupId>org.json4s</groupId>
+        <artifactId>json4s-mongo_${scala.binaryVersion}</artifactId>
+        <version>${json4s.version}</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+      <dependency>
+        <groupId>org.dom4j</groupId>
+        <artifactId>dom4j</artifactId>
+        <version>2.1.1</version>
+      </dependency>
+
+      <!-- Apache POI - Java API To Access Microsoft Format Files -->
+      <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>${apach.poi.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>${apach.poi.version}</version>
+      </dependency>
+
+      <!-- Rx libs -->
+      <!-- Note : RxJava version 2.x and 1.x will live side-by-side for several years.
+      They will have different group ids (io.reactivex.rxjava2 vs io.reactivex) and namespaces (io.reactivex vs rx).
+      Still include 1.x version since it is used in module baseJava and is require by RxScala used in module baseScala. -->
+      <!-- RxJava 2.x libs -->
+      <!-- https://mvnrepository.com/artifact/io.reactivex.rxjava2/rxjava -->
+      <dependency>
+        <groupId>io.reactivex.rxjava2</groupId>
+        <artifactId>rxjava</artifactId>
+        <version>${rxjava2.version}</version>
+      </dependency>
+      <!-- RxJava 1.x libs -->
+      <!-- https://mvnrepository.com/artifact/io.reactivex/rxjava -->
+      <dependency>
+        <groupId>io.reactivex</groupId>
+        <artifactId>rxjava</artifactId>
+        <version>${rxjava1.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/io.reactivex/rxscala_2.12 -->
+      <dependency>
+        <groupId>io.reactivex</groupId>
+        <artifactId>rxscala_${scala.binaryVersion}</artifactId>
+        <version>${rxjava1.rxscala.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/io.reactivex/rxswing -->
+      <dependency>
+        <groupId>io.reactivex</groupId>
+        <artifactId>rxswing</artifactId>
+        <version>${rxjava1.rxswing.version}</version>
+      </dependency>
+
+      <!-- test libs -->
+      <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>${testng.version}</version>
+      </dependency>
+
+      <!-- ScalaTest and Scalactic -->
+      <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest_2.12 -->
+      <dependency>
+        <groupId>org.scalatest</groupId>
+        <artifactId>${scalatest.artifactId}</artifactId>
+        <version>${scalatest.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <!--The dependency on Scalactic, ScalaTest's sister library focused on quality through types. -->
+      <!-- https://mvnrepository.com/artifact/org.scalactic/scalactic_2.12 -->
+      <dependency>
+        <groupId>org.scalactic</groupId>
+        <artifactId>${scalactic.artifactId}</artifactId>
+        <version>${scalatest.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <!-- There are moved from scalatest 3.2.0-M2 into these separate libs. -->
+      <!-- https://mvnrepository.com/artifact/org.scalatestplus/scalatestplus-junit -->
+      <dependency>
+        <groupId>org.scalatestplus</groupId>
+        <artifactId>scalatestplus-junit_${scala.binaryVersion}</artifactId>
+        <version>${scalatest.scalatestplus.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.scalatestplus/scalatestplus-testng -->
+      <dependency>
+        <groupId>org.scalatestplus</groupId>
+        <artifactId>scalatestplus-testng_${scala.binaryVersion}</artifactId>
+        <version>${scalatest.scalatestplus.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.scalatestplus/scalatestplus-mockito -->
+      <dependency>
+        <groupId>org.scalatestplus</groupId>
+        <artifactId>scalatestplus-mockito_${scala.binaryVersion}</artifactId>
+        <version>${scalatest.scalatestplus.version}</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/com.google.guava/guava-testlib -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava-testlib</artifactId>
+        <version>${guava.actualVersion}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- JUnit4, https://mvnrepository.com/artifact/junit/junit -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.junit4.version}</version>
+      </dependency>
+      <!-- JUnit5, http://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.junit5.version}</version>
+      </dependency>
+
+      <!-- Mockito -->
+      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>${mockito.version</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-android -->
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-android</artifactId>
+        <version>${mockito.version</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-scala -->
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-scala_${scala.binaryVersion}</artifactId>
+        <version>${mockito.mockitoScala.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.mockito/mockito-scala-scalatest -->
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-scala-scalatest_${scala.binaryVersion}</artifactId>
+        <version>${mockito.mockitoScala.version}</version>
+      </dependency>
+
+      <!-- JMH -->
+      <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
+      <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-core</artifactId>
+        <version>${jmh.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
+      <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-generator-annprocess</artifactId>
+        <version>${jmh.version}</version>
+      </dependency>
+
+      <!-- generic programming libs for Scala -->
+      <!-- https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13 -->
+      <dependency>
+        <groupId>com.chuusai</groupId>
+        <artifactId>shapeless_${scala.binaryVersion}</artifactId>
+        <version>${shapeless.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.scalaz/scalaz-core_2.13 -->
+      <dependency>
+        <groupId>org.scalaz</groupId>
+        <artifactId>scalaz-core_${scala.binaryVersion}</artifactId>
+        <version>${scalaz.version}</version>
+      </dependency>
+
+      <!-- log libs -->
+      <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+
+      <!-- config libs -->
+      <!-- https://mvnrepository.com/artifact/com.typesafe/config -->
+      <dependency>
+        <groupId>com.typesafe</groupId>
+        <artifactId>config</artifactId>
+        <version>1.3.2</version>
+      </dependency>
+
+      <!-- graph libs -->
+      <!-- JGraphT, http://jgrapht.org, is focused on data structures and algorithms. -->
+      <!-- https://mvnrepository.com/artifact/org.jgrapht/jgrapht-core -->
+      <dependency>
+        <groupId>org.jgrapht</groupId>
+        <artifactId>jgrapht-core</artifactId>
+        <version>${jgrapht.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.jgrapht/jgrapht-guava -->
+      <dependency>
+        <groupId>org.jgrapht</groupId>
+        <artifactId>jgrapht-guava</artifactId>
+        <version>${jgrapht.version}</version>
+      </dependency>
+      <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.jgrapht/jgrapht-io &ndash;&gt;-->
+      <!--<dependency>-->
+      <!--<groupId>org.jgrapht</groupId>-->
+      <!--<artifactId>jgrapht-io</artifactId>-->
+      <!--<version>${jgrapht.version}</version>-->
+      <!--</dependency>-->
+      <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.jgrapht/jgrapht-ext &ndash;&gt;-->
+      <!--<dependency>-->
+      <!--<groupId>org.jgrapht</groupId>-->
+      <!--<artifactId>jgrapht-ext</artifactId>-->
+      <!--<version>${jgrapht.version}</version>-->
+      <!--</dependency>-->
+
+      <!-- Graph for Scala, http://scala-graph.org, provides basic graph functionality that seamlessly fits into the Scala standard collections library. -->
+      <!-- https://mvnrepository.com/artifact/org.scala-graph/graph-core_2.12 -->
+      <dependency>
+        <groupId>org.scala-graph</groupId>
+        <artifactId>graph-core_${scala.binaryVersion}</artifactId>
+        <version>1.12.1</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+</project>
