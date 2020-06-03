@@ -13,13 +13,41 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="McLab" exported="" />
+    <orderEntry type="library" name="scala-sdk-2.13.1" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../lib/antlr-3.0.1/lib/antlr-3.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../lib/antlr-3.0.1/lib/antlr-2.7.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../lib/antlr-3.0.1/lib/stringtemplate-3.1b1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: javax.measure:unit-api:2.0" level="project" />
     <orderEntry type="library" name="Maven: tech.units:indriya:2.0.2" level="project" />
     <orderEntry type="library" name="Maven: tech.uom.lib:uom-lib-common:2.0" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.collections:eclipse-collections-api:10.1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.collections:eclipse-collections:10.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:28.1-jre" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:failureaccess:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
@@ -47,8 +75,14 @@
     <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-async_2.13:0.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-java8-compat_2.13:0.9.0" level="project" />
     <orderEntry type="library" name="Maven: com.michaelpollmeier:scala-arm_2.13:2.1" level="project" />
-    <orderEntry type="module" module-name="jflex" />
-    <orderEntry type="module" module-name="McLab" />
-    <orderEntry type="library" name="scala-sdk-2.13.1" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../lib/beaver-0.9.6.2/lib/beaver.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
