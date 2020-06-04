@@ -36,7 +36,7 @@
     <!-- define library versions to be used in sub modules -->
 
     <!-- util libs versions -->
-    <guava.version>28.1</guava.version>
+    <guava.version>29.0</guava.version>
     <guava.actualVersion>${guava.version}-jre</guava.actualVersion>
     <apach.commonsMath3.version>3.6.1</apach.commonsMath3.version>
     <apach.commonsLang3.version>3.8.1</apach.commonsLang3.version>
@@ -49,22 +49,22 @@
 
     <!-- collection libs versions -->
     <!-- gs-collections is renamed as eclipse-collections <gscollections.version>7.0.3</gscollections.version> -->
-    <eclipseCollections.version>10.1.0</eclipseCollections.version>
+    <eclipseCollections.version>10.2.0</eclipseCollections.version>
     <trove4j.version>3.0.3</trove4j.version>
 
     <!-- test lib versions -->
-    <testng.version>7.0.0</testng.version>
+    <testng.version>7.1.0</testng.version>
     <scalatest.artifactId>scalatest_${scala.binaryVersion}</scalatest.artifactId>
     <scalactic.artifactId>scalactic_${scala.binaryVersion}</scalactic.artifactId>
-    <scalatest.version>3.2.0-M2</scalatest.version>
+    <scalatest.version>3.3.0-SNAP2</scalatest.version>
     <scalatest.scalatestplus.version>1.0.0-M2</scalatest.scalatestplus.version>
-    <assertj.version>3.14.0</assertj.version>
-    <assertjGuava.version>3.3.0</assertjGuava.version>
-    <mockito.version>3.2.4</mockito.version>
-    <mockito.mockitoScala.version>1.10.2</mockito.mockitoScala.version>
-    <junit.junit4.version>4.13-rc-2</junit.junit4.version>
-    <junit.junit5.version>5.6.0-M1</junit.junit5.version>
-    <jmh.version>1.22</jmh.version>
+    <assertj.version>3.16.1</assertj.version>
+    <assertjGuava.version>3.4.0</assertjGuava.version>
+    <mockito.version>3.3.3</mockito.version>
+    <mockito.mockitoScala.version>1.14.4</mockito.mockitoScala.version>
+    <junit.junit4.version>4.13</junit.junit4.version>
+    <junit.junit5.version>5.7.0-M1</junit.junit5.version>
+    <jmh.version>1.23</jmh.version>
 
     <!-- Scala lib versions -->
     <shapeless.version>2.3.3</shapeless.version>
@@ -282,6 +282,7 @@
 
       </plugins>
     </pluginManagement>
+
   </build>
 
   <dependencies>

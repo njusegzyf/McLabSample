@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c98c5fd-f4af-42cc-947f-0d1c1da20ecd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/McLabSample/src/main/scala/nju/seg/zhangyf/scala/matlab/mclab/sample/matlab/ReadTokenSample.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/McLabSample/McLabSample.iml" beforeDir="false" afterPath="$PROJECT_DIR$/McLabSample/McLabSample.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/McLabSample/src/main/scala/nju/seg/zhangyf/scala/matlab/mclab/Sample.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/McLabSample/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/McLabSample/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/McLabSample/src/main/scala/nju/seg/zhangyf/scala/matlab/mclab/sample/matlab/ReadTokenSample.scala" beforeDir="false" afterPath="$PROJECT_DIR$/McLabSample/src/main/scala/nju/seg/zhangyf/scala/matlab/mclab/sample/matlab/ReadTokenSample.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/McLabSample/src/main/scala/nju/seg/zhangyf/scala/matlab/mclab/sample/matlab/TranslateToNatlabSample.scala" beforeDir="false" afterPath="$PROJECT_DIR$/McLabSample/src/main/scala/nju/seg/zhangyf/scala/matlab/mclab/sample/matlab/TranslateToNatlabSample.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages/Natlab/src/natlab/Parse.java" beforeDir="false" afterPath="$PROJECT_DIR$/languages/Natlab/src/natlab/Parse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages/Natlab/src/natlab/toolkits/rewrite/Simplifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/languages/Natlab/src/natlab/toolkits/rewrite/Simplifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages/Natlab/test/natlab/MultiRewritePassTestGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/languages/Natlab/test/natlab/MultiRewritePassTestGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mclab-core-master.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/mclab-core-master.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mclab-core-master.iws" beforeDir="false" afterPath="$PROJECT_DIR$/mclab-core-master.iws" afterDir="false" />
     </list>
@@ -57,13 +61,20 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/beaver-0.9.6.2/lib/beaver.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/McLabSample/src/main/resources" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.20625" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RunManager" selected="Application.TranslateToNatlabSample">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\ProjsIDEA\mclab-core-master\McLabSample\src\main\resources" />
+      <recent name="D:\ProjsIDEA\mclab-core-master\McLabSample\src\main\resources\GenTarget\SimplificationSampleSource" />
+      <recent name="D:\ProjsIDEA\mclab-core-master\McLabSample\src\main\resources\GenTarget" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.SimplificationSample">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -74,8 +85,26 @@
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
     </configuration>
+    <configuration name="MultiRewritePassTestGeneratorSample" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="nju.seg.zhangyf.scala.matlab.mclab.sample.natlab.MultiRewritePassTestGeneratorSample" />
+      <module name="McLabSample" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Sample" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="nju.seg.zhangyf.scala.matlab.mclab.sample.matlab.ReadTokenSample" />
+      <module name="McLabSample" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimplificationSample" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="nju.seg.zhangyf.scala.matlab.mclab.sample.natlab.SimplificationSample" />
       <module name="McLabSample" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -119,6 +148,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SimplificationSample" />
+        <item itemvalue="Application.MultiRewritePassTestGeneratorSample" />
         <item itemvalue="Application.TranslateToNatlabSample" />
         <item itemvalue="Application.Sample" />
       </list>
@@ -140,10 +171,18 @@
       <screen x="0" y="0" width="1463" height="823" />
     </state>
     <state x="187" y="66" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1463.823@0.0.1463.823" timestamp="1591060252480" />
-    <state x="563" y="122" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1591150623333">
+    <state x="412" y="212" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591249998668">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state x="563" y="122" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1463.823@0.0.1463.823" timestamp="1591150623333" />
+    <state x="412" y="212" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1463.823@0.0.1463.823" timestamp="1591249998668" />
+    <state x="462" y="201" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1591255830541">
+      <screen x="0" y="0" width="1463" height="823" />
+    </state>
+    <state x="462" y="201" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1463.823@0.0.1463.823" timestamp="1591255830541" />
+    <state x="563" y="122" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1591254320285">
+      <screen x="0" y="0" width="1463" height="823" />
+    </state>
+    <state x="563" y="122" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1463.823@0.0.1463.823" timestamp="1591254320285" />
     <state x="463" y="166" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1591148933405">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
@@ -152,46 +191,46 @@
       <screen x="0" y="0" width="1463" height="823" />
     </state>
     <state x="487" y="113" key="#xdebugger.evaluate/0.0.1463.823@0.0.1463.823" timestamp="1591148157403" />
-    <state x="361" y="190" key="FileChooserDialogImpl" timestamp="1591149012718">
+    <state x="491" y="275" key="FileChooserDialogImpl" timestamp="1591254319054">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state x="361" y="190" key="FileChooserDialogImpl/0.0.1463.823@0.0.1463.823" timestamp="1591149012718" />
-    <state width="1024" height="210" key="GridCell.Tab.0.bottom" timestamp="1591153373206">
+    <state x="491" y="275" key="FileChooserDialogImpl/0.0.1463.823@0.0.1463.823" timestamp="1591254319054" />
+    <state width="1000" height="210" key="GridCell.Tab.0.bottom" timestamp="1591258228195">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="1024" height="210" key="GridCell.Tab.0.bottom/0.0.1463.823@0.0.1463.823" timestamp="1591153373206" />
-    <state width="1024" height="210" key="GridCell.Tab.0.center" timestamp="1591153373206">
+    <state width="1000" height="210" key="GridCell.Tab.0.bottom/0.0.1463.823@0.0.1463.823" timestamp="1591258228195" />
+    <state width="1000" height="210" key="GridCell.Tab.0.center" timestamp="1591258228195">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="1024" height="210" key="GridCell.Tab.0.center/0.0.1463.823@0.0.1463.823" timestamp="1591153373206" />
-    <state width="1024" height="210" key="GridCell.Tab.0.left" timestamp="1591153373206">
+    <state width="1000" height="210" key="GridCell.Tab.0.center/0.0.1463.823@0.0.1463.823" timestamp="1591258228195" />
+    <state width="1000" height="210" key="GridCell.Tab.0.left" timestamp="1591258228194">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="1024" height="210" key="GridCell.Tab.0.left/0.0.1463.823@0.0.1463.823" timestamp="1591153373206" />
-    <state width="1024" height="210" key="GridCell.Tab.0.right" timestamp="1591153373206">
+    <state width="1000" height="210" key="GridCell.Tab.0.left/0.0.1463.823@0.0.1463.823" timestamp="1591258228194" />
+    <state width="1000" height="210" key="GridCell.Tab.0.right" timestamp="1591258228195">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="1024" height="210" key="GridCell.Tab.0.right/0.0.1463.823@0.0.1463.823" timestamp="1591153373206" />
-    <state width="1024" height="261" key="GridCell.Tab.1.bottom" timestamp="1591153349176">
+    <state width="1000" height="210" key="GridCell.Tab.0.right/0.0.1463.823@0.0.1463.823" timestamp="1591258228195" />
+    <state width="1000" height="261" key="GridCell.Tab.1.bottom" timestamp="1591256823751">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="1024" height="261" key="GridCell.Tab.1.bottom/0.0.1463.823@0.0.1463.823" timestamp="1591153349176" />
-    <state width="1024" height="261" key="GridCell.Tab.1.center" timestamp="1591153349176">
+    <state width="1000" height="261" key="GridCell.Tab.1.bottom/0.0.1463.823@0.0.1463.823" timestamp="1591256823751" />
+    <state width="1000" height="261" key="GridCell.Tab.1.center" timestamp="1591256823751">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="1024" height="261" key="GridCell.Tab.1.center/0.0.1463.823@0.0.1463.823" timestamp="1591153349176" />
-    <state width="1024" height="261" key="GridCell.Tab.1.left" timestamp="1591153349176">
+    <state width="1000" height="261" key="GridCell.Tab.1.center/0.0.1463.823@0.0.1463.823" timestamp="1591256823751" />
+    <state width="1000" height="261" key="GridCell.Tab.1.left" timestamp="1591256823751">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="1024" height="261" key="GridCell.Tab.1.left/0.0.1463.823@0.0.1463.823" timestamp="1591153349176" />
-    <state width="1024" height="261" key="GridCell.Tab.1.right" timestamp="1591153349176">
+    <state width="1000" height="261" key="GridCell.Tab.1.left/0.0.1463.823@0.0.1463.823" timestamp="1591256823751" />
+    <state width="1000" height="261" key="GridCell.Tab.1.right" timestamp="1591256823751">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="1024" height="261" key="GridCell.Tab.1.right/0.0.1463.823@0.0.1463.823" timestamp="1591153349176" />
-    <state x="118" y="87" width="1108" height="711" key="SettingsEditor" timestamp="1591150764091">
+    <state width="1000" height="261" key="GridCell.Tab.1.right/0.0.1463.823@0.0.1463.823" timestamp="1591256823751" />
+    <state x="118" y="87" width="1108" height="711" key="SettingsEditor" timestamp="1591256515232">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state x="118" y="87" width="1108" height="711" key="SettingsEditor/0.0.1463.823@0.0.1463.823" timestamp="1591150764091" />
+    <state x="118" y="87" width="1108" height="711" key="SettingsEditor/0.0.1463.823@0.0.1463.823" timestamp="1591256515232" />
     <state x="430" y="303" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1589429434660">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
@@ -200,21 +239,21 @@
       <screen x="0" y="0" width="1463" height="823" />
     </state>
     <state x="387" y="26" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1463.823@0.0.1463.823" timestamp="1591149708740" />
-    <state x="295" y="140" width="873" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1591060402227">
+    <state x="295" y="140" width="873" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1591255836786">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state x="295" y="140" width="873" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1463.823@0.0.1463.823" timestamp="1591060402227" />
-    <state x="434" y="143" width="595" height="536" key="find.popup" timestamp="1591147640918">
+    <state x="295" y="140" width="873" height="641" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1463.823@0.0.1463.823" timestamp="1591255836786" />
+    <state x="434" y="143" width="607" height="536" key="find.popup" timestamp="1591253357540">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state x="434" y="143" width="595" height="536" key="find.popup/0.0.1463.823@0.0.1463.823" timestamp="1591147640918" />
+    <state x="434" y="143" width="607" height="536" key="find.popup/0.0.1463.823@0.0.1463.823" timestamp="1591253357540" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1591060044654">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="376" height="500" key="javadoc.popup.new" timestamp="1591060199843">
+    <state width="376" height="500" key="javadoc.popup.new" timestamp="1591257936968">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state width="376" height="500" key="javadoc.popup.new/0.0.1463.823@0.0.1463.823" timestamp="1591060199843" />
+    <state width="376" height="500" key="javadoc.popup.new/0.0.1463.823@0.0.1463.823" timestamp="1591257936968" />
     <state width="600" height="428" key="javadoc.popup/0.0.1463.823@0.0.1463.823" timestamp="1591060044654" />
     <state x="396" y="111" key="new project wizard" timestamp="1591010139762">
       <screen x="0" y="0" width="1463" height="823" />
@@ -224,19 +263,18 @@
       <screen x="0" y="0" width="1463" height="823" />
     </state>
     <state x="572" y="169" key="refactoring.ChangeSignatureDialog/0.0.1463.823@0.0.1463.823" timestamp="1591060696839" />
-    <state x="394" y="144" width="672" height="678" key="search.everywhere.popup" timestamp="1591150711633">
+    <state x="394" y="144" width="672" height="678" key="search.everywhere.popup" timestamp="1591256818937">
       <screen x="0" y="0" width="1463" height="823" />
     </state>
-    <state x="394" y="144" width="672" height="678" key="search.everywhere.popup/0.0.1463.823@0.0.1463.823" timestamp="1591150711633" />
+    <state x="394" y="144" width="672" height="678" key="search.everywhere.popup/0.0.1463.823@0.0.1463.823" timestamp="1591256818937" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/McLabSample/src/main/scala/nju/seg/zhangyf/scala/matlab/mclab/sample/matlab/TranslateToNatlabSample.scala</url>
-          <line>96</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="4" />
+        </breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint enabled="true" type="java-exception">
@@ -246,5 +284,10 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo typeName="java.lang.NullPointerException" fieldName="backtrace" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

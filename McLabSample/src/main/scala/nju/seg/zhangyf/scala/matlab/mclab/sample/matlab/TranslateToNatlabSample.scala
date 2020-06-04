@@ -67,8 +67,8 @@ object TranslateToNatlabSample extends App {
       (for {
         in <- managed(new BufferedReader(new FileReader(matlabSampleCodePath.toFile, matlabSampleCodeCharset)))
       } yield {
-        val prescanner = new FunctionEndScanner(in)
-        prescanner.translate
+        val preScanner = new FunctionEndScanner(in)
+        preScanner.translate
       }).opt.get
 
     var prePosMap: PositionMap = null

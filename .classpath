@@ -6,6 +6,7 @@
 	<classpathentry kind="src" output="languages/Matlab/bin-eclipse" path="languages/Matlab/src"/>
 	<classpathentry kind="src" output="languages/Matlab/bin-eclipse" path="languages/Matlab/gen"/>
 	<classpathentry kind="src" output="languages/Matlab/bin-eclipse" path="languages/Matlab/test"/>
+	<classpathentry kind="src" path="languages/Natlab/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="lib/jflex-1.4.1/lib/JFlex.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/beaver-0.9.6.2/lib/beaver.jar" sourcepath="lib/beaver-0.9.6.2/src"/>

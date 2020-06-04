@@ -33,152 +33,149 @@ import ast.ASTNode;
  * book keeping.
  *
  * Dependencies are assumed to form a tree. Dependencies are built
- * from a start set and recorded in post order, avoiding repetition. 
+ * from a start set and recorded in post order, avoiding repetition.
  *
  * @author Jesse Doherty
  */
-public class Simplifier
-{
-    public static final boolean DEBUG = false;
-    
-    //List of simplifications. If applied in list order, then all
-    //dependencies should be met.
-    protected LinkedList<AbstractSimplification> simplifications;
+public class Simplifier {
 
-    protected ASTNode tree;
-    protected VFPreorderAnalysis kind;
+  public static final boolean DEBUG = false;
 
-    
-    /**
-     * Helper constructor using varargs
-     * The varags have to be classes extending Simplfication (otherwise there will be a runtime exception)
-     */
-//    @SuppressWarnings("unchecked")
-    public Simplifier(ASTNode tree,Class... todo){
-        this(tree, new HashSet<>(Arrays.<Class<? extends AbstractSimplification>>asList(todo)));
-    }
+  //List of simplifications. If applied in list order, then all
+  //dependencies should be met.
+  protected LinkedList<AbstractSimplification> simplifications;
 
-    /**
-     * Helper constructor where the Set of classes gets specified using varargs
-     * The varags have to be classes extending Simplfication (otherwise there will be a runtime exception)
-     */
-//    @SuppressWarnings("unchecked")
-    public Simplifier(ASTNode tree,
-            VFPreorderAnalysis kindAnalysis,
-            Class<? extends AbstractSimplification> ... todo){
-        this(tree, new HashSet<>(Arrays.asList(todo)),
-             kindAnalysis);
-    }
-    
-    /**
-     * Helper static method, simply applies simplifications and returns the new tree
-     * the list of classes have to extend AbstractSimplification
-     */
-    @SuppressWarnings("unchecked")
-    public static <T extends ASTNode> T simplify(T tree,
-            VFPreorderAnalysis kindAnalysis,
-            Class ... todo){
-        return (T)(new Simplifier(tree,kindAnalysis,todo).simplify());
-    }
-    /**
-     * Helper static method, simply applies simplifications and returns the new tree
-     * the list of classes have to extend AbstractSimplification
-     */
-    @SuppressWarnings("unchecked")
-    public static <T extends ASTNode> T simplify(T tree,
-            Class ... todo){
-        return (T)(new Simplifier(tree,todo).simplify());
-    }
-    
-    /**
-     * Constructs a simplifier for a given set of simplification
-     * classes. 
-     */
-    public Simplifier( ASTNode tree, Set<Class<? extends AbstractSimplification>> todo )
-    {
-        this( tree, todo, new VFPreorderAnalysis(tree) );
-    }
-    public Simplifier( ASTNode tree, 
-                       Set<Class<? extends AbstractSimplification>> todo, 
-                       VFPreorderAnalysis kindAna )
-    {
-        simplifications = new LinkedList<>();
-        kind = kindAna;
-        if( !kind.isAnalyzed() )
-            kind.analyze();
+  protected ASTNode tree;
 
-        this.tree = tree;
-        buildDependencies( todo );
-    }
+  protected VFPreorderAnalysis kind;
 
-    /**
-     * Runs the simplifications in a correct order.
-     */
-    public ASTNode simplify()
-    {
-        ASTNode currentTree = tree;
-        for( AbstractSimplification simp : simplifications ){
-            if (DEBUG) System.out.println( simp +":"); 
-            simp.setTree( currentTree );
-            currentTree = simp.transform();
-            if (DEBUG) System.out.println(currentTree.getPrettyPrinted());
-        }
-        return currentTree;
-    }
+  /**
+   * Helper constructor using varargs
+   * The varags have to be classes extending Simplfication (otherwise there will be a runtime exception)
+   */
+  //    @SuppressWarnings("unchecked")
+  public Simplifier(ASTNode tree, Class... todo) {
+    this(tree, new HashSet<>(Arrays.<Class<? extends AbstractSimplification>>asList(todo)));
+  }
 
-    /**
-     * Builds the dependencies for a given start set.
-     */
-    protected void buildDependencies( Set<Class<? extends AbstractSimplification>> startSet )
-    {
-        Set<Class<? extends AbstractSimplification>> seenStartSet = new HashSet<>();
-        while( !startSet.isEmpty() ){
-            Iterator<Class<? extends AbstractSimplification>> iter = startSet.iterator();
-            Class<? extends AbstractSimplification> simpClass = iter.next();
+  /**
+   * Helper constructor where the Set of classes gets specified using varargs
+   * The varags have to be classes extending Simplfication (otherwise there will be a runtime exception)
+   */
+  //    @SuppressWarnings("unchecked")
+  public Simplifier(ASTNode tree,
+                    VFPreorderAnalysis kindAnalysis,
+                    Class<? extends AbstractSimplification>... todo) {
+    this(tree, new HashSet<>(Arrays.asList(todo)),
+         kindAnalysis);
+  }
 
-            AbstractSimplification simp = constrSimp(simpClass);
-            seenStartSet.add( simpClass );
-            iter.remove();
-            buildDependencies( simp, startSet, seenStartSet );
-        }
-    }
-    /**
-     * Builds the dependencies for a given simplification, puts them
-     * in the list of simplifications. Ensures that if the
-     * simplifications in the list are executed in order, then all
-     * dependencies will be met.
-     *
-     * Dependencies are assumed to form a tree. If a dependency is in
-     * the seenStartSet then we stop recursing on that branch.
-     */
-    protected void buildDependencies( AbstractSimplification base, 
-                                      Set<Class<? extends AbstractSimplification>> startSet,
-                                      Set<Class<? extends AbstractSimplification>> seenStartSet)
-    {
-        for( Class<? extends AbstractSimplification> depClass : base.getDependencies() ){
-            if( !seenStartSet.contains( depClass )){
-                startSet.remove( depClass );
-                seenStartSet.add( depClass );
+  /**
+   * Helper static method, simply applies simplifications and returns the new tree
+   * the list of classes have to extend AbstractSimplification
+   */
+  @SuppressWarnings("unchecked")
+  public static <T extends ASTNode> T simplify(T tree,
+                                               VFPreorderAnalysis kindAnalysis,
+                                               Class... todo) {
+    return (T) (new Simplifier(tree, kindAnalysis, todo).simplify());
+  }
 
-                buildDependencies(constrSimp(depClass), startSet, seenStartSet);
-            }
-        }
-        simplifications.add( base );
-    }
+  /**
+   * Helper static method, simply applies simplifications and returns the new tree
+   * the list of classes have to extend AbstractSimplification
+   */
+  @SuppressWarnings("unchecked")
+  public static <T extends ASTNode> T simplify(T tree,
+                                               Class... todo) {
+    return (T) (new Simplifier(tree, todo).simplify());
+  }
 
-    /**
-     * Construct a given simplification class. No recovery is
-     * attempted if an exception or error occurs. No error should
-     * occur.
-     */
-    protected AbstractSimplification constrSimp( Class<? extends AbstractSimplification> simpClass )
-    {
-        try {
-            return simpClass.getConstructor(ASTNode.class,
-                VFPreorderAnalysis.class ).newInstance(tree, kind);
-        } catch (Exception e) {
-            //This REALLY should not happen.
-            throw new UnsupportedOperationException( "Something very wrong happened.", e );
-        }
+  /**
+   * Constructs a simplifier for a given set of simplification
+   * classes.
+   */
+  public Simplifier(ASTNode<?> tree, Set<Class<? extends AbstractSimplification>> todo) {
+    this(tree, todo, new VFPreorderAnalysis(tree));
+  }
+
+  public Simplifier(ASTNode tree,
+                    Set<Class<? extends AbstractSimplification>> todo,
+                    VFPreorderAnalysis kindAna) {
+    simplifications = new LinkedList<>();
+    kind = kindAna;
+    if (!kind.isAnalyzed()) { kind.analyze(); }
+
+    this.tree = tree;
+    buildDependencies(todo);
+  }
+
+  /**
+   * Runs the simplifications in a correct order.
+   */
+  public ASTNode simplify() {
+    ASTNode currentTree = tree;
+    for (AbstractSimplification simp : simplifications) {
+      if (DEBUG) { System.out.println(simp + ":"); }
+      simp.setTree(currentTree);
+      currentTree = simp.transform();
+      if (DEBUG) { System.out.println(currentTree.getPrettyPrinted()); }
     }
+    return currentTree;
+  }
+
+
+  /**
+   * Builds the dependencies for a given start set.
+   */
+  protected void buildDependencies(Set<Class<? extends AbstractSimplification>> startSet) {
+    Set<Class<? extends AbstractSimplification>> seenStartSet = new HashSet<>();
+    while (!startSet.isEmpty()) {
+      Iterator<Class<? extends AbstractSimplification>> iter = startSet.iterator();
+      Class<? extends AbstractSimplification> simpClass = iter.next();
+
+      AbstractSimplification simp = constrSimp(simpClass);
+      seenStartSet.add(simpClass);
+      iter.remove();
+      buildDependencies(simp, startSet, seenStartSet);
+    }
+  }
+
+  /**
+   * Builds the dependencies for a given simplification, puts them
+   * in the list of simplifications. Ensures that if the
+   * simplifications in the list are executed in order, then all
+   * dependencies will be met.
+   *
+   * Dependencies are assumed to form a tree. If a dependency is in
+   * the seenStartSet then we stop recursing on that branch.
+   */
+  protected void buildDependencies(AbstractSimplification base,
+                                   Set<Class<? extends AbstractSimplification>> startSet,
+                                   Set<Class<? extends AbstractSimplification>> seenStartSet) {
+    for (Class<? extends AbstractSimplification> depClass : base.getDependencies()) {
+      if (!seenStartSet.contains(depClass)) {
+        startSet.remove(depClass);
+        seenStartSet.add(depClass);
+
+        buildDependencies(constrSimp(depClass), startSet, seenStartSet);
+      }
+    }
+    simplifications.add(base);
+  }
+
+  /**
+   * Construct a given simplification class. No recovery is
+   * attempted if an exception or error occurs. No error should
+   * occur.
+   */
+  protected AbstractSimplification constrSimp(Class<? extends AbstractSimplification> simpClass) {
+    try {
+      return simpClass.getConstructor(ASTNode.class,
+                                      VFPreorderAnalysis.class).newInstance(tree, kind);
+    } catch (Exception e) {
+      //This REALLY should not happen.
+      throw new UnsupportedOperationException("Something very wrong happened.", e);
+    }
+  }
 }

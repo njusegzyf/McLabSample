@@ -10,7 +10,7 @@ import org.antlr.runtime.{ CommonTokenStream, Token }
 
 import matlab.{ MatlabParser, TextPosition, TrivialScanner }
 
-import nju.seg.zhangyf.scala.matlab.mclab.{ UtilsConfig, UtilsMatlab }
+import nju.seg.zhangyf.scala.matlab.mclab.UtilsMatlab
 
 /**
  * @see ScannerTestTool
@@ -24,9 +24,9 @@ object ReadTokenSample extends App {
 
     val matlabSampleCodeCharset: Charset = Charset.forName("GB2312")
     val matlabSampleCodeRootDir = """/MatlabSampleCode"""
-//    implicit val config: UtilsConfig = new UtilsConfig {
-//      override def charset: Charset = matlabSampleCodeCharset
-//    }
+    //    implicit val config: UtilsConfig = new UtilsConfig {
+    //      override def charset: Charset = matlabSampleCodeCharset
+    //    }
 
     val outputFilePath = Paths.get("""Z:/outToken.txt""")
     val outputFileCharset: Charset = matlabSampleCodeCharset

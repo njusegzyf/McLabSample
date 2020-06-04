@@ -27,7 +27,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,14 +58,28 @@ import com.google.common.io.Files;
 
 /**
  * Set of static methods to parse files.
- * 
+ *
  * TODO(isbadawi): A lot of cruft in this class because it catches exceptions and populates a
  * List<CompilationProblem>. Investigate changing API to use (possibly wrapped) exceptions instead.
  */
 public class Parse {
+
   private static Reader fileReader(String fName, List<CompilationProblem> errors) {
+    return Parse.fileReader(fName, StandardCharsets.UTF_8, errors);
+    //    try {
+    //      return Files.newReader(new File(fName), StandardCharsets.UTF_8);
+    //    } catch (FileNotFoundException e) {
+    //      errors.add(new CompilationProblem("File not found: %s\nAborting!", fName));
+    //      return null;
+    //    }
+  }
+
+  /**
+   * @author Zhang Yifan
+   */
+  private static Reader fileReader(final String fName, final Charset fileCharset, final List<CompilationProblem> errors) {
     try {
-      return Files.newReader(new File(fName), StandardCharsets.UTF_8);
+      return Files.newReader(new File(fName), fileCharset);
     } catch (FileNotFoundException e) {
       errors.add(new CompilationProblem("File not found: %s\nAborting!", fName));
       return null;
@@ -88,11 +104,11 @@ public class Parse {
    *
    * @param fName  The name of the file being parsed.
    * @param file   The reader object containing the source being
-   * parsed.
-   * @param errors   A list of errors for error collection.
+   *               parsed.
+   * @param errors A list of errors for error collection.
    *
    * @return The Program node for the given file being parsed if no
-   * errors. If an error occurs then null is returned. 
+   * errors. If an error occurs then null is returned.
    */
   public static Program parseNatlabFile(String fName, Reader file, List<CompilationProblem> errors) {
     Stmt.setDefaultOutputSuppression(false);
@@ -106,7 +122,7 @@ public class Parse {
       program = (Program) parser.parse(scanner);
     } catch (Parser.Exception e) {
       errors.add(new CompilationProblem(e.getMessage() + "\n" +
-          parser.getErrors().stream().collect(Collectors.joining("\n"))));
+                                        parser.getErrors().stream().collect(Collectors.joining("\n"))));
       return null;
     } catch (IOException e) {
       errors.add(new CompilationProblem("Error parsing %s: %s", fName, e.getMessage()));
@@ -125,20 +141,22 @@ public class Parse {
     }
     return program;
   }
-  
+
   public static class TranslateResult {
+
     private Reader reader;
+
     private PositionMap positionMap;
-    
+
     public TranslateResult(Reader reader, PositionMap positionMap) {
       this.reader = reader;
       this.positionMap = positionMap;
     }
-    
+
     public Reader getReader() {
       return reader;
     }
-    
+
     public PositionMap getPositionMap() {
       return positionMap;
     }
@@ -147,15 +165,14 @@ public class Parse {
   /**
    * Perform the translation from a given Reader containing source code.
    *
-   * @param fName    The name of the file to which the source belongs.
-   * @param source   The string containing the source code.
-   * @param errors  A list of errors for error collection.
-   * 
+   * @param fName  The name of the file to which the source belongs.
+   * @param source The string containing the source code.
+   * @param errors A list of errors for error collection.
+   *
    * @return A reader object giving access to the translated
    * source.
    */
-  public static TranslateResult translateFile(String fName, Reader source, List<CompilationProblem> errors)
-  {
+  public static TranslateResult translateFile(String fName, Reader source, List<CompilationProblem> errors) {
     PositionMap prePosMap = null;
     try {
       String sourceAsString = CharStreams.toString(source);
@@ -170,14 +187,14 @@ public class Parse {
       } else if (result instanceof ProblemResult) {
         for (TranslationProblem problem : ((ProblemResult) result).getProblems()) {
           errors.add(new CompilationProblem(problem.getLine(), problem.getColumn(),
-              problem.getMessage() + "\n"));
+                                            problem.getMessage() + "\n"));
         }
         return null; // terminate early since extraction parser can't work without balanced 'end's
       }
       OffsetTracker offsetTracker = new OffsetTracker(new TextPosition(1, 1));
       List<TranslationProblem> problems = new ArrayList<>();
       String destText = MatlabParser.translate(new ANTLRReaderStream(in),
-          1, 1, offsetTracker, problems);
+                                               1, 1, offsetTracker, problems);
       if (problems.isEmpty()) {
         PositionMap posMap = offsetTracker.buildPositionMap();
         if (prePosMap != null) {
@@ -187,7 +204,7 @@ public class Parse {
       }
       for (TranslationProblem problem : problems) {
         errors.add(new CompilationProblem(problem.getLine(), problem.getColumn(),
-            problem.getMessage() + "\n"));
+                                          problem.getMessage() + "\n"));
       }
       return null;
     } catch (IOException e) {
@@ -201,10 +218,10 @@ public class Parse {
    * expects the program to already be in natlab syntax.
    *
    * @param fName  The name of the file being parsed.
-   * @param errors   A list of errors for error collection.
+   * @param errors A list of errors for error collection.
    *
    * @return The Program node for the given file being parsed if no
-   * errors. If an error occurs then null is returned. 
+   * errors. If an error occurs then null is returned.
    */
   public static Program parseNatlabFile(String fName, List<CompilationProblem> errors) {
     Reader reader = fileReader(fName, errors);
@@ -218,11 +235,11 @@ public class Parse {
    * Parse a given file and return the Program ast node. This
    * expects the program to already be in natlab syntax.
    *
-   * @param file The file to be parsed
-   * @param errors   A list of errors for error collection.
+   * @param file   The file to be parsed
+   * @param errors A list of errors for error collection.
    *
    * @return The Program node for the given file being parsed if no
-   * errors. If an error occurs then null is returned. 
+   * errors. If an error occurs then null is returned.
    */
   public static Program parseNatlabFile(GenericFile file, List<CompilationProblem> errors) {
     Reader reader = fileReader(file, errors);
@@ -233,13 +250,24 @@ public class Parse {
   }
 
   /**
+   * @author Zhang Yifan
+   */
+  public static Program parseNatlabFile(final Path filePath, final Charset fileCharset, final List<CompilationProblem> errors) {
+    Reader reader = fileReader(filePath.toString(), fileCharset, errors);
+    if (!errors.isEmpty()) {
+      return null;
+    }
+    return parseNatlabFile(filePath.getFileName().toString(), reader, errors);
+  }
+
+  /**
    * Parse a given file as a Matlab file and return the Program ast node.
    *
    * @param fName  The name of the file being parsed.
-   * @param errors   A list of errors for error collection.
+   * @param errors A list of errors for error collection.
    *
    * @return The Program node for the given file being parsed if no
-   * errors. If an error occurs then null is returned. 
+   * errors. If an error occurs then null is returned.
    */
   public static Program parseMatlabFile(String fName, List<CompilationProblem> errors) {
     TranslateResult source = translateFile(fName, errors);
@@ -258,11 +286,11 @@ public class Parse {
    *
    * @param fName  The name of the file being parsed.
    * @param file   The reader object containing the source being
-   * parsed.
-   * @param errors   A list of errors for error collection.
+   *               parsed.
+   * @param errors A list of errors for error collection.
    *
    * @return The Program node for the given file being parsed if no
-   * errors. If an error occurs then null is returned. 
+   * errors. If an error occurs then null is returned.
    */
   public static Program parseMatlabFile(String fName, Reader file, List<CompilationProblem> errors) {
     TranslateResult natlabFile = translateFile(fName, file, errors);
@@ -278,10 +306,10 @@ public class Parse {
    * Parse a given file as a Matlab file and return the Program ast node.
    *
    * @param file   The file to be parsed.
-   * @param errors   A list of errors for error collection.
+   * @param errors A list of errors for error collection.
    *
    * @return The Program node for the given file being parsed if no
-   * errors. If an error occurs then null is returned. 
+   * errors. If an error occurs then null is returned.
    */
   public static Program parseMatlabFile(GenericFile file, List<CompilationProblem> errors) {
     Reader reader = fileReader(file, errors);
@@ -292,7 +320,7 @@ public class Parse {
   }
 
   private static CompilationUnits parseMultipleFiles(boolean matlab, List<String> files,
-      List<CompilationProblem> errors) {
+                                                     List<CompilationProblem> errors) {
     CompilationUnits cu = new CompilationUnits();
     List<CompilationProblem> fileErrors = new ArrayList<>();
     for (String fName : files) {
@@ -309,8 +337,10 @@ public class Parse {
    * Parse several matlab files; use this instead of building up CompilationUnits manually.
    * Files which can't be parsed for whatever reason are skipped, with all their errors added
    * to the errors list.
-   * @param files a list of filenames to be parsed
+   *
+   * @param files  a list of filenames to be parsed
    * @param errors a list of errors for error collection
+   *
    * @return a CompilationUnits object containing those programs that were successfully parsed
    */
   public static CompilationUnits parseMatlabFiles(List<String> files, List<CompilationProblem> errors) {
@@ -321,8 +351,10 @@ public class Parse {
    * Parse several natlab files; use this instead of building up CompilationUnits manually.
    * Files which can't be parsed for whatever reason are skipped, with all their errors added
    * to the errors list.
-   * @param files a list of filenames to be parsed
+   *
+   * @param files  a list of filenames to be parsed
    * @param errors a list of errors for error collection
+   *
    * @return a CompilationUnits object containing those programs that were successfully parsed
    */
   public static CompilationUnits parseNatlabFiles(List<String> files, List<CompilationProblem> errors) {
@@ -332,9 +364,9 @@ public class Parse {
   /**
    * Perform the reading and translation of a given file.
    *
-   * @param fName    The name of the file to be translated.
-   * @param errors  A list of errors for error collection.
-   * 
+   * @param fName  The name of the file to be translated.
+   * @param errors A list of errors for error collection.
+   *
    * @return A reader object giving access to the translated
    * source.
    */
@@ -349,9 +381,9 @@ public class Parse {
   /**
    * Perform the reading and translation of a given file.
    *
-   * @param file    the file to be translated
-   * @param errors  A list of errors for error collection.
-   * 
+   * @param file   the file to be translated
+   * @param errors A list of errors for error collection.
+   *
    * @return A reader object giving access to the translated
    * source.
    */
@@ -367,11 +399,11 @@ public class Parse {
    * Perform the translation of a given string containing source
    * code.
    *
-   * @param fName    The name of the file to which the source
-   * belongs.
-   * @param source   The string containing the source code.
-   * @param errors  A list of errors for error collection.
-   * 
+   * @param fName  The name of the file to which the source
+   *               belongs.
+   * @param source The string containing the source code.
+   * @param errors A list of errors for error collection.
+   *
    * @return A reader object giving access to the translated
    * source.
    */
