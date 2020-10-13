@@ -62,7 +62,7 @@
     <assertjGuava.version>3.4.0</assertjGuava.version>
     <mockito.version>3.3.3</mockito.version>
     <mockito.mockitoScala.version>1.14.4</mockito.mockitoScala.version>
-    <junit.junit4.version>4.13</junit.junit4.version>
+    <junit.junit4.version>4.13.1</junit.junit4.version>
     <junit.junit5.version>5.7.0-M1</junit.junit5.version>
     <jmh.version>1.23</jmh.version>
 
