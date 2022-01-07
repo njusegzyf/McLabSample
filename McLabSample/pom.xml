@@ -42,7 +42,7 @@
     <apach.commonsLang3.version>3.8.1</apach.commonsLang3.version>
     <apach.poi.version>3.17</apach.poi.version>
     <akka.version>2.6.3</akka.version>
-    <protobuf.version>3.11.1</protobuf.version>
+    <protobuf.version>3.16.1</protobuf.version>
     <protobuf.grpc.version>1.26.0</protobuf.grpc.version>
     <protobuf.mavenPlugin.version>0.6.1</protobuf.mavenPlugin.version>
     <json4s.version>3.7.0-M2</json4s.version>
