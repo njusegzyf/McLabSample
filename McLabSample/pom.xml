@@ -40,7 +40,7 @@
     <guava.actualVersion>${guava.version}-jre</guava.actualVersion>
     <apach.commonsMath3.version>3.6.1</apach.commonsMath3.version>
     <apach.commonsLang3.version>3.8.1</apach.commonsLang3.version>
-    <apach.poi.version>3.17</apach.poi.version>
+    <apach.poi.version>4.1.1</apach.poi.version>
     <akka.version>2.6.3</akka.version>
     <protobuf.version>3.11.1</protobuf.version>
     <protobuf.grpc.version>1.26.0</protobuf.grpc.version>
