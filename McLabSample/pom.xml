@@ -27,7 +27,7 @@
 
     <java.javaFX.version>13.0.1</java.javaFX.version>
 
-    <scala.version>2.13.1</scala.version>
+    <scala.version>2.13.9</scala.version>
     <scala.binaryVersion>2.13</scala.binaryVersion>
     <scala.scope>compile</scala.scope>
     <scala.langModule.version>2.0.0-M1</scala.langModule.version>
